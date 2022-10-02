@@ -82,4 +82,9 @@ class UserController extends Controller
             ], 'Authenticated Failed', 500);
         }
     }
+
+    public function fetch(Request $request)
+    {
+        return ResponseFormatter::success($request->user(),'Data profile user berhasil diambil');
+    }
 }
