@@ -10,8 +10,9 @@ use Laravel\Fortify\Rules\Password;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class UserController extends Controller
+class UserController extends Controller implements JWTSubject
 {
     public function register(Request $request)
     {
@@ -103,5 +104,14 @@ class UserController extends Controller
         $token =$request->user()->currentAccessToken()->delete();
 
         return ResponseFormatter::success($request->user(), 'Token Revoked');
+    }
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }
