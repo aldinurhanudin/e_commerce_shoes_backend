@@ -23,8 +23,8 @@ use App\Http\Controllers\API\TransactionController;
 Route::get('products', [ProductController::class, 'all']);
 Route::get('categories', [ProductCategoryController::class, 'all']);
 
-Route::get('register', [UserController::class, 'register']); 
-Route::get('login', [UserController::class, 'login']);
+Route::post('register', [UserController::class, 'register']); 
+Route::post('login', [UserController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function(){
     Route::get('user', [UserController::class, 'fetch']);
@@ -32,4 +32,5 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('logout', [UserController::class, 'logout']);
 
     Route::get('transactions', [ TransactionController::class, 'all']);
+    Route::post('checkout', [TransactionController::class, 'checkout']);
 });
