@@ -2,10 +2,11 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\ProductController;
-use App\Http\Controllers\API\ProductCategoryController;
 use App\Http\Controllers\API\TransactionController;
+use App\Http\Controllers\API\ProductCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,10 +26,11 @@ Route::group([
 
 ], function ($router) {
 
-    Route::post('login', 'AuthController@login');
-    Route::post('logout', 'AuthController@logout');
-    Route::post('refresh', 'AuthController@refresh');
-    Route::post('me', 'AuthController@me');
+    Route::post('register', [AuthController::class,'register']);
+    Route::post('login', [AuthController::class,'login']);
+    Route::post('logout',[AuthController::class,'logout'] );
+    Route::post('refresh',[AuthController::class,'refresh'] );
+    Route::post('me', [AuthController::class,'me']);
 
 });
 
@@ -38,11 +40,11 @@ Route::get('categories', [ProductCategoryController::class, 'all']);
 Route::get('register', [UserController::class, 'register']); 
 Route::get('login', [UserController::class, 'login']);
 
-Route::middleware('auth:sanctum')->group(function(){
-    Route::get('user', [UserController::class, 'fetch']);
-    Route::post('user',[UserController::class, 'updateProfile']);
-    Route::post('logout', [UserController::class, 'logout']);
+// Route::middleware('auth:sanctum')->group(function(){
+//     Route::get('user', [UserController::class, 'fetch']);
+//     Route::post('user',[UserController::class, 'updateProfile']);
+//     Route::post('logout', [UserController::class, 'logout']);
 
-    Route::get('transactions', [ TransactionController::class, 'all']);
-    Route::post('checkout', [TransactionController::class, 'checkout']);
-});
+//     Route::get('transactions', [ TransactionController::class, 'all']);
+//     Route::post('checkout', [TransactionController::class, 'checkout']);
+// });
